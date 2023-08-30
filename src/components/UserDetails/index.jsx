@@ -1,16 +1,10 @@
-/* eslint-disable react/prop-types */
-import { Box, Button, Link, Text, useTheme } from "@chakra-ui/react";
+import { Box, Button, Grid, Link, Text, useTheme } from "@chakra-ui/react";
+import PropTypes from "prop-types"; // Import PropTypes
 
-// eslint-disable-next-line react/prop-types
 const UserDetails = ({ userDetails, loginUrl, isLoading }) => {
-  console.log("userDetauls", userDetails);
   const theme = useTheme();
 
-  const gridItems = {
-    display: "flex",
-    flexDirection: "column",
-    gap: "30px",
-  };
+  console.log("loginUrl", loginUrl);
 
   return (
     <>
@@ -31,46 +25,37 @@ const UserDetails = ({ userDetails, loginUrl, isLoading }) => {
         {isLoading ? (
           <Text>Loading User Details</Text>
         ) : (
-          <Box display="grid" gridTemplateColumns="auto auto" mt="64px">
-            <>
-              {Object.keys(userDetails).map((key) => (
-                <>
-                  <Box key={key} sx={gridItems}>
-                    {userDetails[key]?.map((item) => (
-                      <Box key={item.label}>
-                      <Text key={item} sx={theme.fonts.secondary}>{item.label}:</Text>
-                      <Text key={item} sx={theme.fonts.secondary}>{item.value}:</Text>
-                      </Box>
-                    ))}
-                    <Box>
-                    </Box>
+          <Box mt="64px">
+            <Grid templateColumns="repeat(2, 1fr)" gap="10px">
+              <Box>
+                {userDetails.username?.map((item, index) => (
+                  <Box key={`${item.label}-${index}`}>
+                    <Text sx={theme.fonts.secondary}>{item.label}</Text>
+                    <Text sx={theme.fonts.secondary}>{item.value}</Text>
                   </Box>
-                </>
-              ))}
-
-              <Box sx={gridItems}>
-                {/* <Box>
-                  {Object.entries(userDetails.basic)?.map(([key, item]) => (
-                    <React.Fragment key={key}>
-                      <Text sx={theme.fonts.secondary}>{item.label}</Text>
-                      <Text sx={theme.fonts.secondary}>{item.value}</Text>
-                    </React.Fragment>
-                  ))}
-                </Box> */}
-
-                <Box>
-                  {/* {Object.entries(userDetails.additional)?.map(
-                    ([key, item]) => (
-                      <React.Fragment key={key}>
-                        <Text sx={theme.fonts.secondary}>{item.label}</Text>
-                        <Text sx={theme.fonts.secondary}>{item.value}</Text>
-                      </React.Fragment>
-                    )
-                  )} */}
-                </Box>
+                ))}
+                {userDetails.password?.map((item, index) => (
+                  <Box key={`${item.label}-${index}`}>
+                    <Text sx={theme.fonts.secondary}>{item.label}</Text>
+                    <Text sx={theme.fonts.secondary}>{item.value}</Text>
+                  </Box>
+                ))}
               </Box>
-            </>
-            {/* ))} */}
+              <Box>
+                {userDetails.basic?.map((item, index) => (
+                  <Box key={`${item.label}-${index}`}>
+                    <Text sx={theme.fonts.secondary}>{item.label}</Text>
+                    <Text sx={theme.fonts.secondary}>{item.value}</Text>
+                  </Box>
+                ))}
+                {userDetails.additional?.map((item, index) => (
+                  <Box key={`${item.label}-${index}`} mt="10px">
+                    <Text sx={theme.fonts.secondary}>{item.label}</Text>
+                    <Text sx={theme.fonts.secondary}>{item.value}</Text>
+                  </Box>
+                ))}
+              </Box>
+            </Grid>
           </Box>
         )}
 
@@ -88,6 +73,12 @@ const UserDetails = ({ userDetails, loginUrl, isLoading }) => {
       </Box>
     </>
   );
+};
+
+UserDetails.propTypes = {
+  userDetails: PropTypes.object, // You can define a more specific PropTypes shape here if needed
+  loginUrl: PropTypes.string,
+  isLoading: PropTypes.bool,
 };
 
 export default UserDetails;

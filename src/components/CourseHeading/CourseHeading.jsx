@@ -1,4 +1,5 @@
 import { Box, Link, Text, useTheme } from "@chakra-ui/react";
+import PropTypes from "prop-types"; // Import PropTypes
 
 const CourseHeading = ({ courses }) => {
   const theme = useTheme();
@@ -14,7 +15,11 @@ const CourseHeading = ({ courses }) => {
 
         <>
           {Object.keys(courses)?.map((course) => (
-            <Link key={course} href={courses[course]?.course_link}>
+            <Link
+              target="_blank"
+              key={course}
+              href={courses[course]?.course_link}
+            >
               <Text sx={theme.fonts.primary}>
                 {courses[course]?.name} ({courses[course]?.description})
               </Text>
@@ -24,6 +29,10 @@ const CourseHeading = ({ courses }) => {
       </Box>
     </Box>
   );
+};
+
+CourseHeading.propTypes = {
+  courses: PropTypes.object, // You can define a more specific PropTypes shape here if needed
 };
 
 export default CourseHeading;

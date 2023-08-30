@@ -1,4 +1,3 @@
-
 import { Box } from '@chakra-ui/react';
 import { useQueryClient } from '@tanstack/react-query';
 import CourseHeading from './components/CourseHeading/CourseHeading';
