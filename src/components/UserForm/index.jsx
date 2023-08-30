@@ -31,7 +31,6 @@ const UserForm = ({ userDetails }) => {
 		e.preventDefault();
 
 		const { email } = decodeToken();
-		console.log('hj');
 		addUser({
 			...formFields,
 			fields_data: {
@@ -43,7 +42,6 @@ const UserForm = ({ userDetails }) => {
 			},
 		});
 	};
-	console.log({ formFields });
 	return (
 		<Box
 			mt='59px'

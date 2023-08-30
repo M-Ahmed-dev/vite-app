@@ -1,5 +1,4 @@
 import { Box } from '@chakra-ui/react';
-import { useQueryClient } from '@tanstack/react-query';
 import CourseHeading from './components/CourseHeading/CourseHeading';
 import Footer from './components/Footer/Footer';
 import Navbar from './components/Navbar/Navbar';
@@ -9,6 +8,14 @@ import UserForm from './components/UserForm';
 
 function App() {
 	const { data, isLoading } = useVerification();
+
+	const password = localStorage.getItem('password');
+	if (password && data) {
+		if (data.user_details.password) {
+			data.user_details.password = JSON.parse(password);
+			localStorage.removeItem('password');
+		}
+	}
 
 	return isLoading ? (
 		<p>Loading...</p>
@@ -25,7 +32,9 @@ function App() {
 						isLoading={isLoading}
 					/>
 				) : (
-					<UserForm userDetails={data?.form_fields} />
+					<UserForm
+						userDetails={data?.form_fields}
+					/>
 				)}
 			</Box>
 			<Footer />

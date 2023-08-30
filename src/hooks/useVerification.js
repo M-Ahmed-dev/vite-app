@@ -6,41 +6,33 @@ export function queryStringify(params) {
 	return queryString ? `?${queryString}` : '';
 }
 
-export const useVerification = () => {
+export async function getVerifications() {
 	const { email, baseUrl, queryParams } = decodeToken();
-	return useQuery([`verification-url`, baseUrl], async () => {
-		const response = await fetch(
-			`${baseUrl}verification/${queryStringify({
-				...queryParams,
-			})}`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			}
-		);
-		if (!response.ok) {
-			throw new Error(response.statusText);
+	const response = await fetch(
+		`${baseUrl}verification/${queryStringify({
+			...queryParams,
+		})}`,
+		{
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
 		}
-		const data = await response.json();
+	);
+	if (!response.ok) {
+		throw new Error(response.statusText);
+	}
+	const data = await response.json();
 
-		data.email = email;
-		// data.form_fields.basic = {
-		// 	...data.basic,
-		// 	email: {
-		// 		id: 'email',
-		// 		name: 'Email',
-		// 		restricted: '1',
-		// 		value: email,
-		// 		definition: {
-		// 			type: 'text',
-		// 			options: '',
-		// 		},
-		// 		visibility: 'on',
-		// 	},
-		// };
-		console.log({ data });
-		return data;
+	data.email = email;
+
+	return data;
+}
+
+export const useVerification = () => {
+	const { baseUrl } = decodeToken();
+
+	return useQuery([`verification-url`, baseUrl], async () => {
+		return await getVerifications();
 	});
 };

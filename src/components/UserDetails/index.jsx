@@ -3,9 +3,6 @@ import PropTypes from "prop-types"; // Import PropTypes
 
 const UserDetails = ({ userDetails, loginUrl, isLoading }) => {
   const theme = useTheme();
-
-  console.log("loginUrl", loginUrl);
-
   return (
     <>
       <Box

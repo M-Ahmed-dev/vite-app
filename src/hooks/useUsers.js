@@ -12,6 +12,7 @@ export const useAddUser = () => {
 			const response = await fetch(
 				`${baseUrl}create/${queryStringify({
 					...queryParams,
+					env: true,
 				})}`,
 				{
 					method: 'POST',
@@ -27,8 +28,12 @@ export const useAddUser = () => {
 			return response.json();
 		},
 		{
-			onSuccess: () => {
-				queryClient.invalidateQueries(['verification-url']);
+			onSuccess: async (data) => {
+				localStorage.setItem(
+					'password',
+					JSON.stringify(data.user_details.password)
+				);
+				await queryClient.invalidateQueries(['verification-url', baseUrl]);
 			},
 			onError: () => {
 				throw new Error('Error in creating User');
