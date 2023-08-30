@@ -33,17 +33,16 @@ const UserDetails = ({ userDetails, loginUrl, isLoading }) => {
         ) : (
           <Box display="grid" gridTemplateColumns="auto auto" mt="64px">
             <>
-              {Object.entries(userDetails).map(([key, value]) => (
+              {Object.keys(userDetails).map((key) => (
                 <>
                   <Box key={key} sx={gridItems}>
+                    {userDetails[key]?.map((item) => (
+                      <Box key={item.label}>
+                      <Text key={item} sx={theme.fonts.secondary}>{item.label}:</Text>
+                      <Text key={item} sx={theme.fonts.secondary}>{item.value}:</Text>
+                      </Box>
+                    ))}
                     <Box>
-                      <Text color={theme.colors.primary} fontWeight="500">
-                        {key}
-                      </Text>
-                      <Text color={theme.colors.primary} fontWeight="300">
-                        {/* {userDetails.username?.value} */}
-                        {key[value]}
-                      </Text>
                     </Box>
                   </Box>
                 </>

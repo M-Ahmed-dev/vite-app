@@ -7,7 +7,7 @@ export function queryStringify(params) {
 }
 
 export const useVerification = () => {
-	const { baseUrl, queryParams } = decodeToken();
+	const { email, baseUrl, queryParams } = decodeToken();
 	return useQuery([`verification-url`, baseUrl], async () => {
 		const response = await fetch(
 			`${baseUrl}verification/${queryStringify({
@@ -24,6 +24,23 @@ export const useVerification = () => {
 			throw new Error(response.statusText);
 		}
 		const data = await response.json();
+
+		data.email = email;
+		// data.form_fields.basic = {
+		// 	...data.basic,
+		// 	email: {
+		// 		id: 'email',
+		// 		name: 'Email',
+		// 		restricted: '1',
+		// 		value: email,
+		// 		definition: {
+		// 			type: 'text',
+		// 			options: '',
+		// 		},
+		// 		visibility: 'on',
+		// 	},
+		// };
+		console.log({ data });
 		return data;
 	});
 };
