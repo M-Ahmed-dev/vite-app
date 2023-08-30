@@ -33,12 +33,12 @@ const UserDetails = ({ userDetails, loginUrl, isLoading }) => {
         ) : (
           <Box display="grid" gridTemplateColumns="auto auto" mt="64px">
             <>
-              {Object.entries(userDetails)?.map(([key, value]) => (
+              {Object.entries(userDetails).map(([key, value]) => (
                 <>
                   <Box key={key} sx={gridItems}>
                     <Box>
                       <Text color={theme.colors.primary} fontWeight="500">
-                        {key[value]}
+                        {key}
                       </Text>
                       <Text color={theme.colors.primary} fontWeight="300">
                         {/* {userDetails.username?.value} */}
@@ -50,24 +50,24 @@ const UserDetails = ({ userDetails, loginUrl, isLoading }) => {
               ))}
 
               <Box sx={gridItems}>
-                <Box>
+                {/* <Box>
                   {Object.entries(userDetails.basic)?.map(([key, item]) => (
                     <React.Fragment key={key}>
                       <Text sx={theme.fonts.secondary}>{item.label}</Text>
                       <Text sx={theme.fonts.secondary}>{item.value}</Text>
                     </React.Fragment>
                   ))}
-                </Box>
+                </Box> */}
 
                 <Box>
-                  {Object.entries(userDetails.additional)?.map(
+                  {/* {Object.entries(userDetails.additional)?.map(
                     ([key, item]) => (
                       <React.Fragment key={key}>
                         <Text sx={theme.fonts.secondary}>{item.label}</Text>
                         <Text sx={theme.fonts.secondary}>{item.value}</Text>
                       </React.Fragment>
                     )
-                  )}
+                  )} */}
                 </Box>
               </Box>
             </>
@@ -82,7 +82,7 @@ const UserDetails = ({ userDetails, loginUrl, isLoading }) => {
           color="#FFF"
           background={theme.colors.primary}
         >
-          <Link target="_blank" href={login}>
+          <Link target="_blank" href={loginUrl}>
             Login in to Priima
           </Link>
         </Button>

@@ -8,13 +8,10 @@ import { useVerification } from "./hooks/useVerification";
 
 function App() {
   const { data, isLoading } = useVerification();
-  console.log("APiData", data);
 
-  const queryClient = useQueryClient();
 
-  queryClient.removeQueries({ queryKey: "verification-url" });
 
-  return (
+  return isLoading ? <p>Loading...</p> : (
     <>
       {" "}
       <Navbar />
@@ -22,7 +19,8 @@ function App() {
         <CourseHeading courses={data?.courses} />
         <UserDetails
           loginUrl={data?.priima_login}
-          userDetails={data?.userDetails}
+          userDetails={data?.user_details
+          }
           isLoading={isLoading}
         />
       </Box>

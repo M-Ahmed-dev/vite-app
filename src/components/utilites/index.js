@@ -1,24 +1,23 @@
 function decodeToken() {
-  const newObject = {
-    baseUrl: "",
-    email: "",
-    queryParams: {
-      data: "",
-    },
-  };
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const data = urlParams.get("data");
+	const newObject = {
+		baseUrl: '',
+		email: '',
+		queryParams: {
+			data: '',
+		},
+	};
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const data = urlParams.get('data');
 
-  if (data) {
-    const parsedData = JSON.parse(atob(data));
-    console.log(parsedData);
-    newObject.baseUrl = parsedData.endpoint;
-    newObject.email = parsedData.email;
-    newObject.queryParams.data = data;
-  }
+	if (data) {
+		const parsedData = JSON.parse(atob(data));
+		newObject.baseUrl = parsedData.endpoint;
+		newObject.email = parsedData.email;
+		newObject.queryParams.data = data;
+	}
 
-  return newObject;
+	return newObject;
 }
 
 export default decodeToken;
